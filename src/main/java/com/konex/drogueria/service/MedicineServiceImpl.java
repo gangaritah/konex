@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -37,11 +38,38 @@ public class MedicineServiceImpl implements MedicineService{
 
   @Override
   public ResponseEntity<?> updateMedication(Medicine medicine, Integer id) {
-    return null;
+    try {
+      Optional<Medicine> medicineSearched = medicineRepository.findById(id);
+      if (medicineSearched.isPresent()) {
+        medicineSearched.get().setName(medicine.getName());
+        medicineSearched.get().setLaboratory(medicine.getLaboratory());
+        medicineSearched.get().setManufacturingDate(medicine.getManufacturingDate());
+        medicineSearched.get().setDueDate(medicine.getDueDate());
+        medicineSearched.get().setStock(medicine.getStock());
+        medicineSearched.get().setValueUnit(medicine.getValueUnit());
+        Medicine medicineUpdate = medicineRepository.save(medicineSearched.get());
+      }
+      return new ResponseEntity<>(HttpStatus.OK);
+    } catch (Exception e){
+      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   @Override
   public ResponseEntity<?> deleteMedication(Integer id) {
-    return null;
+    try {
+      Optional<Medicine> medicineSearched = medicineRepository.findById(id);
+      if (medicineSearched.isPresent()){
+        medicineRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+      }else {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      }
+
+    }catch (Exception e){
+      e.printStackTrace();
+      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
   }
 }
