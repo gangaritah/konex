@@ -1,9 +1,7 @@
-package com.konex.drogueria.entity;
+package com.konex.drogueria.domain.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Date;
 

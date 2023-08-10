@@ -1,7 +1,7 @@
-package com.konex.drogueria.service;
+package com.konex.drogueria.application;
 
-import com.konex.drogueria.entity.Medicine;
-import com.konex.drogueria.repository.MedicineRepository;
+import com.konex.drogueria.domain.model.Medicine;
+import com.konex.drogueria.domain.port.MedicineRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class MedicineServiceImpl implements MedicineService{
+public class MedicineServiceImpl implements MedicineService {
   private MedicineRepository medicineRepository;
   @Override
   public ResponseEntity<?> listMedication() {
@@ -31,6 +31,22 @@ public class MedicineServiceImpl implements MedicineService{
       Optional<Medicine> medicineSearched = medicineRepository.findById(id);
       if (medicineSearched.isPresent()){
         return new ResponseEntity<>(medicineSearched.get().getValueUnit(), HttpStatus.OK);
+      }else {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      }
+
+    }catch (Exception e){
+      e.printStackTrace();
+      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  @Override
+  public ResponseEntity<?> nameMedication(Integer id) {
+    try {
+      Optional<Medicine> medicineSearched = medicineRepository.findById(id);
+      if (medicineSearched.isPresent()){
+        return new ResponseEntity<>(medicineSearched.get().getName(), HttpStatus.OK);
       }else {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
       }

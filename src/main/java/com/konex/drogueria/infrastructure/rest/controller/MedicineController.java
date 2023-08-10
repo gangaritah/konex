@@ -1,7 +1,7 @@
-package com.konex.drogueria.controller;
+package com.konex.drogueria.infrastructure.rest.controller;
 
-import com.konex.drogueria.entity.Medicine;
-import com.konex.drogueria.service.MedicineService;
+import com.konex.drogueria.domain.model.Medicine;
+import com.konex.drogueria.application.MedicineService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +18,14 @@ public class MedicineController {
     return (ResponseEntity<List<Medicine>>) medicineService.listMedication();
   }
 
-  @GetMapping("/medicines/{id}")
-  public ResponseEntity<List<Medicine>> priceMedicines(@PathVariable Integer id){
+  @GetMapping("/medicines/price/{id}")
+  public ResponseEntity<?> priceMedicines(@PathVariable Integer id){
     return (ResponseEntity<List<Medicine>>) medicineService.priceMedication(id);
+  }
+
+  @GetMapping("/medicines/name/{id}")
+  public ResponseEntity<?> nameMedicines(@PathVariable Integer id){
+    return (ResponseEntity<List<Medicine>>) medicineService.nameMedication(id);
   }
 
   @PostMapping("/medicines")
