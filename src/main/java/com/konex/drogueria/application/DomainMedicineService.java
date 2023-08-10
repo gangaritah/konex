@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class MedicineServiceImpl implements MedicineService {
+public class DomainMedicineService implements MedicineService {
   private MedicineRepository medicineRepository;
   @Override
   public ResponseEntity<?> listMedication() {
