@@ -8,4 +8,6 @@ public interface MedicineService {
   public ResponseEntity<?> saveMedication(Medicine medicine);
   public ResponseEntity<?> updateMedication(Medicine medicine, Integer id);
   public ResponseEntity<?> deleteMedication(Integer id);
+  public ResponseEntity<?> priceMedication(Integer id);
+
 }

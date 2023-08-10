@@ -26,6 +26,22 @@ public class MedicineServiceImpl implements MedicineService{
   }
 
   @Override
+  public ResponseEntity<?> priceMedication(Integer id) {
+    try {
+      Optional<Medicine> medicineSearched = medicineRepository.findById(id);
+      if (medicineSearched.isPresent()){
+        return new ResponseEntity<>(medicineSearched.get().getValueUnit(), HttpStatus.OK);
+      }else {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      }
+
+    }catch (Exception e){
+      e.printStackTrace();
+      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  @Override
   public ResponseEntity<?> saveMedication(Medicine medicine) {
     try{
       Medicine medicineSaved = medicineRepository.save(medicine);

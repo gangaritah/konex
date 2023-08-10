@@ -18,6 +18,11 @@ public class MedicineController {
     return (ResponseEntity<List<Medicine>>) medicineService.listMedication();
   }
 
+  @GetMapping("/medicines/{id}")
+  public ResponseEntity<List<Medicine>> priceMedicines(@PathVariable Integer id){
+    return (ResponseEntity<List<Medicine>>) medicineService.priceMedication(id);
+  }
+
   @PostMapping("/medicines")
   public ResponseEntity<?> saveMedicines(@RequestBody Medicine medicine){
     return medicineService.saveMedication(medicine);
